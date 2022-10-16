@@ -1,23 +1,26 @@
-// lista de usuarios existentes para poder validar
-//user 1
-const nombreUser1 = "GABRIELA";
-const emailUser1 = "gabriela@gmail.com";
-const passUser1 = "g1234";
-// user 2
-const nombreUser2 = "PABLO";
-const emailUser2 = "pablo@gmail.com";
-const passUser2 = "p1234";
+//Array de usuarios
+const usuarios = new Array ();
+usuarios.push(new Usuario ("GABRIELA","gabriela@gmail.com","g1234"));
+usuarios.push(new Usuario ("PABLO","pablo@gmail.com","p1234"));
 
-// listado de productos
-const producto1 = new Productos ("TAZA CERAMICA", 800, true);
-const producto2 = new Productos ("TAZA POLIMERO", 500, true);
-const producto3 = new Productos ("REMERA", 1500, false);
-const producto4 = new Productos ("IDENTIFICADOR PERRO", 200, true);
-const producto5 = new Productos ("IDENTIFICADOR GATO", 200, true);
-const producto6 = new Productos ("GORRA", 1000, true);
+// Array de productos a la venta
+const listaProducto = new Array ();
+listaProducto.push(new Productos ("TAZA CERAMICA", 800, true));
+listaProducto.push(new Productos ("TAZA POLIMERO", 500, true));
+listaProducto.push(new Productos ("REMERA", 1500, false));
+listaProducto.push(new Productos ("IDENTIFICADOR PERRO", 200, true));
+listaProducto.push(new Productos ("IDENTIFICADOR GATO", 200, true))
+listaProducto.push(new Productos ("GORRA", 1000, false));
+listaProducto.push(new Productos ("KIT INFANTIL", 1800, true));
+listaProducto.sort((a, b) => a.tipo.localeCompare(b.tipo));
+
+//muestro por consola el listado de productos ordenados
+console.log(listaProducto);
+
+// Array vacio para el listado de compra del usuario
+let lista = new Array ();
 
 // usuario ingresa a la pagina y se le pregunta si desea registrarse para comprar
-
 let ingreso = confirm("¿Desea registrarse ahora?");
 
 // si acepta se le pide los datos sino sigue navegando sin registro hasta que quiera comprar
@@ -25,216 +28,361 @@ if (ingreso){
     ingresoDatos ();
 };
 
-// funcion para pedir datos al usuario
-function ingresoDatos(){
+// una vez registrado se pregunta al usuario si desea realizar una compra ahora 
+// sino sigue navegando hasta que quiera comprar
+let comprar = confirm("¿Deseas comprar ahora?");
 
-    let nombre = prompt('Ingresá un nombre de usuario').toUpperCase();
-    let email = prompt("Ingresá un email");
-    let pass = prompt("Ingresá una contraseña");
+if (comprar) {
+    iniciarCompra ();
 
-    // se veridica que los campos ingresados no estén vacios
-    if (nombre && email && pass){
-
-        // si no están vacios se validan datos
-        let validacion = validarDatos(nombre, email);
-
-        // si la validacion fue exitosa (true) se crea el usuario y se le da la bienvenida
-        if (validacion) {
-            const userNuevo = new Usuario (nombre,email,pass);
-            userNuevo.mostrarBienvenida();
-            // una vez registrado se pregunta al usuario si desea realizar una compra ahora 
-            // sino sigue navegando hasta que quiera comprar
-            let comprar = confirm("¿Deseas comprar ahora?");
-            if (comprar) {
-                iniciarCompra ();
+    if (lista.length > 0){
+        // muestra el carrito
+        let productosComprados = "";
+        for (let i = 0 ;  i < lista.length ; i++){
+            productosComprados += lista[i].descripcionProducto() + "\n";
+        };
+        // se le pregunta al usuario si confirma la compra
+        alert(productosComprados);
+        let confirmaCompra = confirm("Confirmas la compra de estos productos");
+        if (confirmaCompra){
+            terminarCompra();
+        }else {
+            // si cancela la compra se vacia el carrito
+            alert("El carrito de compras se vaciará");
+            while(lista.length > 0){
+                lista.pop(); 
             };
-
-        }else { // si la validacion no tuvo exito, vuelve a pedir datos
-            ingresoDatos();
+            // muestro por consola el array lista para verificar que se eliminaron los elementos
+            console.log(lista); 
+            alert("Gracias por tu visita");
         };
 
-    }else { // si están vacios se le informa al user que debe completar los datos
-        alert("Por favor, completá todos los datos"); 
-        let respuesta = confirm("¿Desea registrarse ahora?"); // se le vuelve a preguntar si se quiere registar 
-        // si acepta vuelve a pedir datos
-        if (respuesta) {
-            ingresoDatos(); 
-        };
+    }else{
+        alert("Gracias por tu visita");
     };
 };
 
+
+// FUNCIONES
+
+// funcion para pedir datos al usuario
+function ingresoDatos(){
+    let datos = true;
+
+    while (datos){
+        let mensaje = "";
+        let nombre = prompt('Ingresá un nombre de usuario');
+        let email = prompt("Ingresá un email");
+        let pass = prompt("Ingresá una contraseña");
+
+        // chequeo que nombre no esté vacio
+        if (!nombre){
+            mensaje += "Debes ingresar un nombre de usuario" + "\n";
+        };
+
+        // chequeo que email no esté vacio
+        if(!email){
+            mensaje += "Debes ingresar un email" + "\n";
+        };
+
+        // chequeo que la contraseña no esté vacio
+        if(!pass){
+            mensaje += "Debes ingresar una contraseña" + "\n";
+        };
+
+        // si la variable mensaje tiene algo es porque alguno de los promps no fue ingresado.
+        // se muestra el mensaje y confirma si quiere registrarse. Acepta vuelve a iniciar el ciclo
+        // si cancela devuelve false y corta el ciclo 
+        if(mensaje != ""){
+            alert(mensaje);
+            datos = confirm("¿Deseas registrarte ahora?");
+        }else {
+            // si no están vacios se validan datos
+            let validacion = validarDatos(nombre, email); 
+
+            // si la validacion fue exitosa (true) se crea el usuario y se le da la bienvenida
+            if (validacion) {
+                usuarios.unshift(new Usuario (nombre.toUpperCase(),email,pass));
+                usuarios[0].mostrarBienvenida();
+                // muestro por consola como quedo el array
+                console.log(usuarios);
+                datos = false;
+                
+            }else {
+                // si la validacion no tuvo exito se pregunta si quiere volver a completar los datos
+                // si acepta el ciclo comienza de nuevo sino se corta el ciclo.
+                datos = confirm("¿Desas volver a completar los datos?");
+            };
+        };
+    };
+ };
+    
 // funcion para validar datos
 function validarDatos(nombre,email){
 
-    // se verifica si el nombre coincide con alguno ya registrado
-    if ((nombre === nombreUser1) || (nombre === nombreUser2)){
+    let nombreEncontrado = usuarios.find((a)=> a.name === nombre.toUpperCase());
+    if (nombreEncontrado){
         alert("El nombre de usuario ya existe");
-        return false
+        return false;
     };
-    // se verifica si el email coincide con alguno ya registrado
-    if ((email === emailUser1) || (email === emailUser2)){
+
+    let emailEncontrado = usuarios.find((b)=> b.mail === email);
+    if (emailEncontrado){
         alert("El email ya se encuentra registrado");
-        return false
+        return false;
+    }else {
+        let validarEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        if (!validarEmail.test(email)){
+            alert("el email ingresado es inválido");
+		    return false;
+        }
     };
 
-    return true 
+    return true
 };
 
+
+// funcion para iniciar compra
 function iniciarCompra() {
-    let lista = "";
+
     let finalizarCompra = false;
-   
+
     while (!finalizarCompra){
-        let productoIngresado = prompt('Ingrese el nombre del producto en MAYÚSCULAS');
+        // muestro el listado de productos para que el usuario elija una opcion
+        let listadoProductos = "Ingresá el código del producto a comprar:" + "\n";
+        let mensaje = "";
+        listaProducto.forEach((p,index) => {
+        mensaje += (index + 1) + " " + p.tipo + "\n"
+        });
+        let respuesta = prompt(listadoProductos + mensaje);
 
-        // si el producto ingresado es una taza se le pide al usuario el tipo
-        if (productoIngresado === "TAZA") {
-            let tazaTipo = confirm("¿Quiere una taza de ceramica?");
-            if (tazaTipo) {
-                productoIngresado += " " + "CERAMICA";
+        // se verifica que la opcion ingresada sea correcta
+        let opcionCorrecta = verificarOpcion(respuesta);
+
+        if (!opcionCorrecta){
+            let respuestaDos = confirm("¿Queres volver a intentarlo?");
+            if (respuestaDos){
+                iniciarCompra();
             }else {
-                productoIngresado += " " + "POLIMERO";
-            }
-        };
-
-        // si el producto ingresado es un identificador se le pide al usuario el tipo
-        if (productoIngresado === "IDENTIFICADOR") {
-            let identificadorTipo = confirm("¿Quiere un identificador para perro?");
-            if (identificadorTipo) {
-                productoIngresado += " " + "PERRO";
-            }else {
-                productoIngresado += " " + "GATO";
-            }
-        };
-
-        let product = obtenerProducto(productoIngresado);
-
-        if (product){
-            alert("Producto agregado con exito: " + product);
-            lista += "\n" + product;
-            let seguirComprando = confirm("Desea seguir comprando?");
-            if (!seguirComprando) {
-                finalizarCompra = true ;
+                finalizarCompra = true;
             };
-
         }else {
-            if (productoIngresado === null){
-                if (lista === ""){
-                  finalizarCompra = true;  
-                }else {
-                    let cancelarCompra= confirm("Desea cancelar la compra?");
-                    if (cancelarCompra) {
-                        lista = "";
-                        finalizarCompra = true ;
-                    }else {
-                        finalizarCompra = true ;
-                    }
-                };
+             //si ingreso una opcion correcta, se busca si el producto tiene stock
+            let hayStock = listaProducto[(parseInt(respuesta)-1)].stockeado();
+            
+            if(hayStock){
                 
+                let productoComprado = pedirDetalles(respuesta);
+                
+                lista.unshift(productoComprado);
+
+                // muestro al usuario el producto comprado / agregado
+                alert(lista[0].descripcionProducto());
+
+                // muestro el array lista por consola para verificar si ingreso el producto
+                console.log(lista)
+                let respuestaCuatro = confirm("¿Queres seguir comprando?");
+                if (!respuestaCuatro){
+                    finalizarCompra = true;
+                };
+
             }else {
-              alert("Porducto sin stock o ingrese un producto válido y en MAYÚSCULAS");  
+                alert("el producto elegido se encuentra sin stock");
+                let respuestaTres = confirm("¿Queres elegir otro producto?");
+                if (!respuestaTres){
+                    finalizarCompra = true;
+                };
             };
-        };   
+        };  
     };
-
-    if (lista != ""){
-        let confirmarCompra = confirm("Desea concretar la compra de: " + "\n" + lista);
-        if (confirmarCompra){
-            alert("Gracias por comprar en nuestra tienda online");
-        };
-    };
-
 };
 
-function obtenerProducto(productoIngresado){
-    let product;
-    // verificar si el producto tiene stock
-    let hayStock = verificarStock(productoIngresado);
-    if(!hayStock){
-        product = false;
-        return product;     
-    };
+// funcion para verificar la opcion de compra elegida
+function verificarOpcion(respuesta) {
 
+    if (respuesta === null) {
+        return false;
+    }
+
+    if (parseInt(respuesta) > listaProducto.length) {
+        alert("el código ingresado es incorrecto");
+        return false;
+    };
+    return true;
+};
+
+// funcion para pedir los detalles de los productos segun el codigo ingresado
+function pedirDetalles(respuesta) {
+    let detalles;
     let color;
     let tematica;
     let nombrePersonalizado;
     let identificadorTelefono;
-    let cantidad = 0 ;
+    let talle;
+    let cantidad = 0;
 
-    switch(productoIngresado){
-        case "TAZA CERAMICA" : 
-            color = prompt("Ingresá el color de tu preferencia");
-            tematica = prompt("Ingresá la temática");
-            nombrePersonalizado = prompt("Ingresá el nombre para personalizar si lo desea");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto1.tipo + "\n" + "Color: " + color + "\n" + "Tema: " + tematica + "\n" + "Nombre: " + nombrePersonalizado + "\n" + "Unidades: " + cantidad + "\n" + "Precio: " + (producto1.precio*cantidad);
+    switch(respuesta) {
+        case "1":
+            detalles = detallesProductos(respuesta);
+            return detalles
             break;
-        case "TAZA POLIMERO" : 
-            color = prompt("Ingresá el color de tu preferencia");
-            tematica = prompt("Ingresá la temática");
-            nombrePersonalizado = prompt("Ingresá el nombre para personalizar si lo desea");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto2.tipo + "\n" + "Color: " + color + "\n" + "Tema: " + tematica + "\n" + "Nombre: " + nombrePersonalizado + "\n" + "Unidades: " + cantidad + "\n" + "Precio: " +  (producto2.precio*cantidad);
+
+        case "2" :
+            detalles = detallesIdentificadores(respuesta);
+            return detalles
             break;
-        case "REMERA" : 
-            color = prompt("Ingresá el color de tu preferencia");
-            tematica = prompt("Ingresá la temática");
-            let remeraTalle = prompt("Ingresá el talle");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto3.tipo + "\n" + "Color: " + color + "\n" + "Tema: " + tematica + "\n" + "Talle: " + remeraTalle + "\n"+ "Unidades: " + cantidad + "\n" + "Precio: " + (producto3.precio*cantidad);
+        
+        case "3" :
+            detalles = detallesIdentificadores(respuesta);
+            return detalles
             break;
-        case "IDENTIFICADOR PERRO": 
-            color = prompt("Ingresá el color de tu preferencia");
-            nombrePersonalizado = prompt("Ingresá el nombre del perro");
-            identificadorTelefono = prompt("Ingresá el teléfono que querés que aparezca en el identificador");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto4.tipo + "\n" + "Color: " + color + "\n" + "Nombre del perro: " + nombrePersonalizado + "\n"  + "Teléfono: " + identificadorTelefono + "\n" + "Unidades: " + cantidad + "\n" + "Precio: " + (producto4.precio*cantidad);
+
+        case "4" :
+            detalles = detallesProductos(respuesta);
+            return detalles
             break;
-        case "IDENTIFICADOR GATO": 
-            color = prompt("Ingresá el color de tu preferencia");
-            nombrePersonalizado = prompt("Ingresá el nombre del gato");
-            identificadorTelefono = prompt("Ingresá el teléfono que querés que aparezca en el identificador");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto5.tipo + "\n" + "Color: " + color + "\n" + "Nombre del perro: " + nombrePersonalizado + "\n" + "Teléfono: " + identificadorTelefono + "\n" + "Unidades: " + cantidad + "\n" + "Precio: " + (producto5.precio*cantidad);
+
+        case "5" :
+            detalles = detallesRemeras(respuesta);
+            return detalles
             break;
-        case "GORRA": 
-            color = prompt("Ingresá el color de tu preferencia");
-            tematica = prompt("Ingresá la temática");
-            nombrePersonalizado = prompt("Ingresá el nombre para personalizar si lo desea");
-            cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
-            product = producto6.tipo + "\n" + "Color: " + color + "\n" + "Tema: " + tematica + "\n" + "Nombre: " + nombrePersonalizado + "\n" + "Unidades: " + cantidad + "\n" + "Precio: " + (producto6.precio*cantidad);
+
+        case "6" :
+            detalles = detallesProductos(respuesta);
+            return detalles
+            break;
+
+        case "7" :
+            detalles = detallesProductos(respuesta);
+            return detalles
             break;
 
         default:
-            product = false;           
-    }
-   return product; 
+            return detalles
+    };
 };
 
-function verificarStock (productoIngresado){
-    let hayStock;
-    switch(productoIngresado) {
-        case "TAZA CERAMICA":
-            hayStock = producto1.stock;
-            break;
-        case "TAZA POLIMERO":
-            hayStock = producto2.stock;
-            break;
-        case "REMERA":
-            hayStock = producto3.stock;
-            break;
-        case "IDENTIFICADOR PERRO":
-            hayStock = producto4.stock;
-            break;
-        case "IDENTIFICADOR GATO":
-            hayStock = producto5.stock;
-            break;
-        case "GORRA":
-            hayStock = producto6.stock;
-            break;
-        default:
-            hayStock = false;
-    }
-    return hayStock;
+// funcion para solicitar detalles de los identificadores
+function detallesIdentificadores(respuesta) {
+    let datosIdentificadores = true
 
-}
+    while(datosIdentificadores) {
+        mensajeDetalles = "";
+        color = prompt("Ingresá el color de tu preferencia");
+        nombrePersonalizado = prompt("Ingresá el nombre de tu mascota");
+        identificadorTelefono = prompt("Ingresá el teléfono que querés que aparezca en el identificador");
+        cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
+
+        // chequeo que los campos no esten vacios
+        if (!color){
+            mensajeDetalles += "Debes ingresar el color del producto" + "\n";
+        };
+
+        if(!nombrePersonalizado){
+            mensajeDetalles += "Debes ingresar el nombre de tu mascota" + "\n";
+        };
+
+        if(!identificadorTelefono){
+            mensajeDetalles += "Debes ingresar el teléfono a figurar en el identificador" + "\n";
+        };
+
+        if(!cantidad){
+            mensajeDetalles += "Debes elegir la cantidad deseada" + "\n";
+        };
+
+        if (mensajeDetalles != ""){
+            alert(mensajeDetalles);
+        }else {
+            datosIdentificadores = false
+        }
+
+    }; 
+    
+    return new Productos (listaProducto[(parseInt(respuesta)-1)].tipo,(listaProducto[(parseInt(respuesta)-1)].precio*cantidad),listaProducto[(parseInt(respuesta)-1)].stock,color,identificadorTelefono,nombrePersonalizado,cantidad);
+};
+
+// funcion para solicitar detalles de los productos
+function detallesProductos(respuesta) {
+    let datosProductos = true
+
+    while(datosProductos) {
+        mensajeDetalles = "";
+        color = prompt("Ingresá el color de tu preferencia");
+        tematica = prompt("Ingresá la temática");
+        nombrePersonalizado = prompt("Ingresá el nombre para personalizar si lo desea");
+        cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
+
+        // chequeo que los campos no esten vacios
+        if (!color){
+            mensajeDetalles += "Debes ingresar el color del producto" + "\n";
+        };
+
+        if(!tematica){
+            mensajeDetalles += "Debes ingresar la temática" + "\n";
+        };
+
+        if(!cantidad){
+            mensajeDetalles += "Debes elegir la cantidad deseada" + "\n";
+        };
+
+        if (mensajeDetalles != ""){
+            alert(mensajeDetalles);
+        }else {
+            datosProductos = false
+        }
+
+    }; 
+    
+    return new Productos (listaProducto[(parseInt(respuesta)-1)].tipo,(listaProducto[(parseInt(respuesta)-1)].precio*cantidad),listaProducto[(parseInt(respuesta)-1)].stock,color,tematica,nombrePersonalizado,cantidad);
+};
+
+// funcion para solicitar detalles de las remeras
+function detallesRemeras(respuesta) {
+    let datosRemeras = true
+
+    while(datosRemeras) {
+        mensajeDetalles = "";
+        color = prompt("Ingresá el color de tu preferencia");
+        tematica = prompt("Ingresá la temática");
+        nombrePersonalizado = prompt("Ingresá el nombre para personalizar si lo desea");
+        talle = prompt("Ingresá el talle");
+        cantidad = parseInt(prompt("Ingresá la cantidad deseada"));
+
+        // chequeo que los campos no esten vacios
+        if (!color){
+            mensajeDetalles += "Debes ingresar el color del producto" + "\n";
+        };
+
+        if(!tematica){
+            mensajeDetalles += "Debes ingresar la temática" + "\n";
+        };
+
+        if(!talle){
+            mensajeDetalles += "Debes elegir el talle de la remera" + "\n";
+        };
+
+        if(!cantidad){
+            mensajeDetalles += "Debes elegir la cantidad deseada" + "\n";
+        };
+
+        if (mensajeDetalles != ""){
+            alert(mensajeDetalles);
+        }else {
+            datosRemeras = false
+        }
+
+    }; 
+    
+    return new Productos (listaProducto[(parseInt(respuesta)-1)].tipo,(listaProducto[(parseInt(respuesta)-1)].precio*cantidad),listaProducto[(parseInt(respuesta)-1)].stock,color,tematica,nombrePersonalizado,cantidad,talle);
+};
+
+// funcion para terminar la compra
+function terminarCompra() {
+    // se muestra el total a pagar
+    let totalPagar = 0;
+    for (let i = 0 ;  i < lista.length ; i++){
+        totalPagar += lista[i].precio;
+    };
+    alert("El total a pagar es: " + totalPagar);
+    alert("Pronto te llegará un email con la orden de compra y link de pago." + "\n" + "Gracias por tu compra.");
+};
