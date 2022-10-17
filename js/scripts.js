@@ -48,12 +48,7 @@ if (comprar) {
             terminarCompra();
         }else {
             // si cancela la compra se vacia el carrito
-            alert("El carrito de compras se vaciará");
-            while(lista.length > 0){
-                lista.pop(); 
-            };
-            // muestro por consola el array lista para verificar que se eliminaron los elementos
-            console.log(lista); 
+            vaciarLista(); 
             alert("Gracias por tu visita");
         };
 
@@ -383,6 +378,17 @@ function terminarCompra() {
     for (let i = 0 ;  i < lista.length ; i++){
         totalPagar += lista[i].precio;
     };
-    alert("El total a pagar es: " + totalPagar);
+    alert("El total a pagar es: $ " + totalPagar);
     alert("Pronto te llegará un email con la orden de compra y link de pago." + "\n" + "Gracias por tu compra.");
+    // una vez terminado el proceso de compra se limpia el carrito
+    vaciarLista();
+};
+
+// funcion para vaciar carrito
+function vaciarLista () {
+    while(lista.length > 0){
+        lista.shift(); 
+    };
+    // muestro por consola el array lista para verificar que se eliminaron los elementos
+    console.log(lista);
 };
