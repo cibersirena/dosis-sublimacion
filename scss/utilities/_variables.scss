@@ -1,0 +1,15 @@
+/* ------------ FONTS ------------ */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+$font-family-primary:'Archivo', Arial, sans-serif;
+
+/* ----------- COLORS ------------ */
+$color-text: #303030;
+$color-primary: #c52a76;
+$color-secondary: #005979;
+
+@mixin botones ($color, $backcolor, $bordercolor) {
+    color: $color;
+    background-color: $backcolor;
+    border-color: $bordercolor;
+}

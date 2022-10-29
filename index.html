@@ -26,10 +26,8 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Quiénes somos</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Comprar</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">Todos los productos</a></li>
-                                <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">Gorras</a></li>
                                 <li><a class="dropdown-item" href="#!">Identificadores para mascotas</a></li>
                                 <li><a class="dropdown-item" href="#!">Kits infantiles</a></li>
@@ -40,26 +38,45 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#!">Contacto</a></li>
                     </ul>
-                    <button class="btn btn-outline-dark me-3" type="submit">
-                        Registrate
+
+                    <button type="button" class="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#registerModal">Registrate</button>
+                    
+                    <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <i class="bi-cart-fill me-1"></i>
+                        Carrito
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Carrito
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
                 </div>
             </div>
         </nav>
+
+        <!-- Off canvas carrito de compras-->
+        
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Tu carrito de compras</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div id="idCarrito">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">Nombre</div>
+                        <div class="col">Precio</div>
+                        <div class="col">Cantidad</div>
+                        <div class="col">Descripcion</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Bienvenidos a Dosis sublimación</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">productos sublimados y personalizados a tu alcance</p>
+                    <p class="lead fw-normal text-white mb-0">productos sublimados y personalizados a tu alcance</p>
                 </div>
             </div>
         </header>
@@ -67,11 +84,11 @@
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productos">
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <img class="card-img-top" src="./assets/productos/Taza-13.jpg" alt="...">
                             <!-- detalle del producto-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -87,112 +104,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                            <!-- detalle del producto-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- nombre-->
-                                    <h5 class="fw-bolder">Taza polímero</h5>
-                                    <!-- Product price-->
-                                    $500.00
-                                </div>
-                            </div>
-                            <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Comprar</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                            <!-- detalle del producto-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- nombre-->
-                                    <h5 class="fw-bolder">Remera modal</h5>
-                                    <!-- Product price-->
-                                    $1500.00
-                                </div>
-                            </div>
-                            <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Comprar</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                            <!-- detalle del producto-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- nombre-->
-                                    <h5 class="fw-bolder">Identificador perro</h5>
-                                    <!-- Product price-->
-                                    $200.00
-                                </div>
-                            </div>
-                            <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Comprar</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                            <!-- detalle del producto-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- nombre-->
-                                    <h5 class="fw-bolder">Identificador gato</h5>
-                                    <!-- Product price-->
-                                    $200.00
-                                </div>
-                            </div>
-                            <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Comprar</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- imagen del producto-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                            <!-- detalle del producto-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- nombre-->
-                                    <h5 class="fw-bolder">Gorra</h5>
-                                    <!-- Product price-->
-                                    $1000.00
-                                </div>
-                            </div>
-                            <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Comprar</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </section>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark bg-secondary">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; Cibersirena Design 2022</p>
             </div>
         </footer>
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="X"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="mensaje"></p>
+                        <form id="modal-form">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                <input type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -1,0 +1,13 @@
+.btn {
+    @include botones (white, $color-primary, $color-primary);
+    &:hover {
+        @include botones ($color-primary, transparent, $color-primary);
+    }
+    &.btn-secondary {
+        @include botones ($color-text, transparent, $color-text);
+    }
+}
+
+.bg-dark {
+    background-color: $color-secondary !important;
+}
