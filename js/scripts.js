@@ -1,7 +1,59 @@
-//Array de usuarios
-const usuarios = new Array ();
-usuarios.push(new Usuario ("GABRIELA","gabriela@gmail.com","g1234"));
-usuarios.push(new Usuario ("PABLO","pablo@gmail.com","p1234"));
+let usuarios = [];
+let productos = [];
+let lista = []; //en el workshop se llama carrito
+
+let adminUser = new AdminUsuarios();
+let registro = document.getElementById("registro");
+let userActual;
+
+const modalContent = document.querySelector('#modal-content');
+
+
+// Evento que se dispara al cargar la pagina
+document.addEventListener('DOMContentLoaded', () => {
+   userActual = JSON.parse(localStorage.getItem('user')) || "vacio";
+   // confirmo por consola si hay un nombre de user
+   console.log(userActual.name);
+
+   // si hay un user en local storage lo muestro en el boton de registro
+   // sino le agrego los atributos de boton de bootstrap para que abra el modal y escucho el evento click
+   if (userActual != "vacio") {
+        registro.textContent = userActual.name;
+   }else {
+        registro.setAttribute("data-bs-toggle", "modal");
+        registro.setAttribute("data-bs-target", "#myModal");
+
+        //evento en el boton registro
+        registro.addEventListener("click",()=>{
+             //funcion para realizar un registro de usuario
+            adminUser.userRegistroNuevo();
+        });
+   };
+    
+});
+
+function validarUser() {
+    let mensaje = document.getElementById("mensaje");
+    mensaje.innerHTML = "";
+    mensaje.style.color = "red";
+
+    //validacion 
+    const validarNombre = document.getElementById("nombre").value || (mensaje.textContent += "Ingresá tu nombre - ");
+    const validarEmail = document.getElementById("email").value || (mensaje.textContent += "Ingresá tu email - ");
+    const validarPassword = document.getElementById("password").value || (mensaje.textContent += "Ingresá una contraseña");
+
+    if (mensaje.textContent === "") {
+        adminUser.validarDatos(validarNombre,validarEmail,validarPassword);
+    };
+};
+
+
+
+
+
+
+
+/*
 
 // Array de productos a la venta
 const listaProducto = new Array ();
@@ -19,14 +71,6 @@ console.log(listaProducto);
 
 // Array vacio para el listado de compra del usuario
 let lista = new Array ();
-
-// usuario ingresa a la pagina y se le pregunta si desea registrarse para comprar
-let ingreso = confirm("¿Desea registrarse ahora?");
-
-// si acepta se le pide los datos sino sigue navegando sin registro hasta que quiera comprar
-if (ingreso){
-    ingresoDatos ();
-};
 
 // una vez registrado se pregunta al usuario si desea realizar una compra ahora 
 // sino sigue navegando hasta que quiera comprar
@@ -59,83 +103,6 @@ if (comprar) {
 
 
 // FUNCIONES
-
-// funcion para pedir datos al usuario
-function ingresoDatos(){
-    let datos = true;
-
-    while (datos){
-        let mensaje = "";
-        let nombre = prompt('Ingresá un nombre de usuario');
-        let email = prompt("Ingresá un email");
-        let pass = prompt("Ingresá una contraseña");
-
-        // chequeo que nombre no esté vacio
-        if (!nombre){
-            mensaje += "Debes ingresar un nombre de usuario" + "\n";
-        };
-
-        // chequeo que email no esté vacio
-        if(!email){
-            mensaje += "Debes ingresar un email" + "\n";
-        };
-
-        // chequeo que la contraseña no esté vacio
-        if(!pass){
-            mensaje += "Debes ingresar una contraseña" + "\n";
-        };
-
-        // si la variable mensaje tiene algo es porque alguno de los promps no fue ingresado.
-        // se muestra el mensaje y confirma si quiere registrarse. Acepta vuelve a iniciar el ciclo
-        // si cancela devuelve false y corta el ciclo 
-        if(mensaje != ""){
-            alert(mensaje);
-            datos = confirm("¿Deseas registrarte ahora?");
-        }else {
-            // si no están vacios se validan datos
-            let validacion = validarDatos(nombre, email); 
-
-            // si la validacion fue exitosa (true) se crea el usuario y se le da la bienvenida
-            if (validacion) {
-                usuarios.unshift(new Usuario (nombre.toUpperCase(),email,pass));
-                usuarios[0].mostrarBienvenida();
-                // muestro por consola como quedo el array
-                console.log(usuarios);
-                datos = false;
-                
-            }else {
-                // si la validacion no tuvo exito se pregunta si quiere volver a completar los datos
-                // si acepta el ciclo comienza de nuevo sino se corta el ciclo.
-                datos = confirm("¿Desas volver a completar los datos?");
-            };
-        };
-    };
- };
-    
-// funcion para validar datos
-function validarDatos(nombre,email){
-
-    let nombreEncontrado = usuarios.find((a)=> a.name === nombre.toUpperCase());
-    if (nombreEncontrado){
-        alert("El nombre de usuario ya existe");
-        return false;
-    };
-
-    let emailEncontrado = usuarios.find((b)=> b.mail === email);
-    if (emailEncontrado){
-        alert("El email ya se encuentra registrado");
-        return false;
-    }else {
-        let validarEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-        if (!validarEmail.test(email)){
-            alert("el email ingresado es inválido");
-		    return false;
-        }
-    };
-
-    return true
-};
-
 
 // funcion para iniciar compra
 function iniciarCompra() {
@@ -392,3 +359,4 @@ function vaciarLista () {
     // muestro por consola el array lista para verificar que se eliminaron los elementos
     console.log(lista);
 };
+*/

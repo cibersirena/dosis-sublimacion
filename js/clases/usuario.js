@@ -11,7 +11,4 @@ class Usuario {
         this.pass = password,
         this.activo =  true //por si es necesario dar de baja un usuario y eliminarlo del array
     };
-    mostrarBienvenida() {
-        alert("Bienvenido/a " + this.name);
-    };
 }
