@@ -110,7 +110,7 @@ class AdminProductos {
                 divCard.innerHTML = `<div class="col mb-3">
                                         <div class="card h-100">
                                             <!-- imagen del producto-->
-                                            <img class="card-img-top" src="../assets/productos/${imagen}" alt="${tipo}">
+                                            <img class="card-img-top" src="./assets/productos/${imagen}" alt="${tipo}">
                                             <!-- detalle del producto-->
                                             <div class="card-body p-4">
                                                 <div class="text-center">
@@ -297,7 +297,7 @@ class AdminProductos {
             row.classList.add('row');
             total += parseInt(p.precio);
             row.innerHTML = `<div class="col-2 d-flex align-items-center p-2">
-                                <img src="../assets/productos/${imagen}" alt="${tipo}" width="50">
+                                <img src="./assets/productos/${imagen}" alt="${tipo}" width="50">
                             </div>
                             <div class="col-5 d-flex align-items-center p-2"> 
                                  ${tipo}
