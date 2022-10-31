@@ -20,7 +20,7 @@ class AdminUsuarios {
     };
 
     userRegistroNuevo() {
-        // creo el formulario dentro del modal
+        // creo el formulario dentro del modal, eliminando todo lo que haya previamente
         modalContent.innerHTML = '';
         let form = document.createElement('div');
         form.classList.add("modal-body");
