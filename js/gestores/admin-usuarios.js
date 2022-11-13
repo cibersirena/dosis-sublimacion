@@ -1,24 +1,5 @@
 class AdminUsuarios {
-    userCargados(){
-        usuarios = [
-            {
-                "name": "GABRIELA",
-                "mail": "gabriela@gmail.com",
-                "pass": "g1234"
-            },
-            {
-                "name": "PABLO",
-                "mail": "pablo@gmail.com",
-                "pass": "p1234"
-            },
-            {
-                "name": "GUSTAVO",
-                "mail": "gus@gmail.com",
-                "pass": "gus1234"
-            }
-        ];
-    };
-
+    
     userRegistroNuevo() {
         // creo el formulario dentro del modal, eliminando todo lo que haya previamente
         modalContent.innerHTML = '';
@@ -52,7 +33,6 @@ class AdminUsuarios {
     };
 
     validarDatos(validarNombre,validarEmail,validarPassword){
-        this.userCargados();
         let validacion = true
         
         // chequeo que no haya un usuario ya registrado

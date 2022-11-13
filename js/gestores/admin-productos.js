@@ -1,73 +1,7 @@
 class AdminProductos {
+    
     cargaProductos() {
-        // Array de productos a la venta
-        listaProductos = [
-            {
-                "id": 7,
-                "tipo": "TAZA CERAMICA",
-                "precio": 1500,
-                "stock": true,
-                "imagen": "Taza-13.jpg",
-                "item": "Tazas"
-            },
-            {
-                "id": 8,
-                "tipo": "TAZA POLIMERO",
-                "precio": 800,
-                "stock": true,
-                "imagen": "Taza-18.jpg",
-                "item": "Tazas"
-            },
-            {
-                "id": 6,
-                "tipo": "REMERA",
-                "precio": 2000,
-                "stock": false,
-                "imagen": "Remera-03.jpg",
-                "item": "Remeras"
-            },
-            {
-                "id": 3,
-                "tipo": "IDENTIFICADOR PERRO",
-                "precio": 500,
-                "stock": true,
-                "imagen": "identificador-45.jpg",
-                "item": "Identificadores"
-            },
-            {
-                "id": 2,
-                "tipo": "IDENTIFICADOR GATO",
-                "precio": 500,
-                "stock": true,
-                "imagen": "identificador-49.jpg",
-                "item": "Identificadores"
-            },
-            {
-                "id": 1,
-                "tipo": "GORRA",
-                "precio": 1800,
-                "stock": false,
-                "imagen": "Gorra-07.png",
-                "item": "Gorras"
-            },
-            {
-                "id": 4,
-                "tipo": "KIT INFANTIL",
-                "precio": 3000,
-                "stock": true,
-                "imagen": "kit-jardin-02.jpg",
-                "item": "Kit infantiles"
-            },
-            {
-                "id": 5,
-                "tipo": "MATE",
-                "precio": 800,
-                "stock": true,
-                "imagen": "mate-02.jpg",
-                "item": "Mates"
-            }
-        ];
-
+        
         // los ordeno segun el id
         listaProductos.sort((a, b) => (a.id - b.id));
         

@@ -9,9 +9,29 @@ let userActual;
 let registro = document.getElementById("registro");
 const modalContent = document.querySelector('#modal-content');
 
+// funcion para cargar los productos desde el archivo JSON
+const pedirProductos = async () => {
+    const respuesta = await fetch('./js/json/productos.json');
+    const datos = await respuesta.json();
+    datos.forEach( (producto)  => {
+        listaProductos.push(producto)
+    });
+    adminProduct.cargaProductos();
+};
+
+// funcion para cargar los usuarios existentes desde el archivo JSON
+const pedirUsuarios = async () => {
+    const respuesta = await fetch('./js/json/usuarios.json');
+    const datos = await respuesta.json();
+    datos.forEach( (user)  => {
+        usuarios.push(user)
+    });
+};
+
 
 // Evento que se dispara al cargar la pagina
 document.addEventListener('DOMContentLoaded', () => {
+
    // verifico si ya hay un user guardado en local storage 
    userActual = JSON.parse(localStorage.getItem('user')) || "vacio";
    // confirmo por consola si hay un nombre de user
@@ -34,8 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // verifico si hay productos guardados en local storage
    listaCompra = JSON.parse( localStorage.getItem('lista') ) || [];
-   adminProduct.cargaProductos();
-    
+   // cargo productos y usuarios
+   pedirProductos();
+   pedirUsuarios();
+
 });
 
 // escucho click boton quienes somos e informo que la pagina está en construcción
