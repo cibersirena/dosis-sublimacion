@@ -7,7 +7,7 @@
         <meta name="description" content="Dosis sublimación, emprendimiento familiar de productos sublimados personalizados, tazas, identificadores, kits infantiles y mucho más">
         <meta name="author" content="Cibersirena Desing">
         <title>Dosis sublimación</title>
-        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon-heart.ico">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.17/sweetalert2.min.css" integrity="sha512-CJ5goVzT/8VLx0FE2KJwDxA7C6gVMkIGKDx31a84D7P4V3lOVJlGUhC2mEqmMHOFotYv4O0nqAOD0sEzsaLMBg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -19,26 +19,22 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Dosis Sublimación</a>
+                <a class="navbar-brand" href="#">
+                    <img src="./assets/logo-dosis.png" alt="Dosis sublimación" class="d-inline-block">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Quiénes somos</a></li>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!" id="quienes-somos">Quiénes somos</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">Gorras</a></li>
-                                <li><a class="dropdown-item" href="#!">Identificadores para mascotas</a></li>
-                                <li><a class="dropdown-item" href="#!">Kits infantiles</a></li>
-                                <li><a class="dropdown-item" href="#!">Mates</a></li>
-                                <li><a class="dropdown-item" href="#!">Tazas</a></li>
-                                <li><a class="dropdown-item" href="#!">Remeras</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="menu-productos">
+                                
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contacto</a></li>
                     </ul>
 
                     <button type="button" class="btn btn-outline-dark me-3" id="registro">Registrate</button>
@@ -66,10 +62,10 @@
         </div>
 
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="bg-dark">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Bienvenidos a Dosis sublimación</h1>
+                <div class="text-white">
+                    <h1 class="display-4 fw-bolder">Bienvenidos a <br> Dosis sublimación</h1>
                     <p class="lead fw-normal text-white mb-0">productos sublimados y personalizados a tu alcance</p>
                 </div>
             </div>
@@ -86,8 +82,17 @@
 
         <!-- Footer-->
         <footer class="py-5 bg-dark bg-secondary">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Cibersirena Design 2022</p>
+            <div class="container-fluid position-relative">
+                <div class="row justify-content-around">
+                    <div class="col-lg-6 col-md-6 col-sm-7 col-12">
+                        <p class="m-0 text-center text-white">Copyright &copy; Cibersirena Design 2022</p>
+                    </div>
+                    <div class="d-flex col-lg-6 col-md-6 col-sm-3 col-12 justify-content-center">
+                        <p class="mb-0 text-white">Contacto:</p>
+                        <a href="https://www.facebook.com/dosissublimacion" target="_blank"><i class="bi bi-facebook ms-4"></i></a>
+                        <a href="https://www.instagram.com/dosissublimacion" target="_blank"><i class="bi bi-instagram ms-4"></i></a>
+                    </div>
+                </div>
             </div>
         </footer>
 
@@ -103,7 +108,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <!--SWEET ALERT JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.17/sweetalert2.min.js" integrity="sha512-Kyb4n9EVHqUml4QZsvtNk6NDNGO3+Ta1757DSJqpxe7uJlHX1dgpQ6Sk77OGoYA4zl7QXcOK1AlWf8P61lSLfQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js" integrity="sha512-MnKz2SbnWiXJ/e0lSfSzjaz9JjJXQNb2iykcZkEY2WOzgJIWVqJBFIIPidlCjak0iTH2bt2u1fHQ4pvKvBYy6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!--TOASTIFY JS-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <!--JS-->
         <script src="./js/clases/usuario.js"></script>
         <script src="./js/clases/productos.js"></script>

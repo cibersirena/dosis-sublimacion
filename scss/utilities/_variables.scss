@@ -7,9 +7,16 @@ $font-family-primary:'Archivo', Arial, sans-serif;
 $color-text: #303030;
 $color-primary: #c52a76;
 $color-secondary: #005979;
+$color-secondary-transparent: rgba(0, 89, 121, 0.20);
 
 @mixin botones ($color, $backcolor, $bordercolor) {
     color: $color;
     background-color: $backcolor;
     border-color: $bordercolor;
+}
+
+@mixin bordes-bottom ($size, $style, $bordercolor) {
+    border-bottom-width: $size;
+    border-bottom-style: $style;
+    border-bottom-color: $bordercolor;
 }

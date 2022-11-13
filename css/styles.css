@@ -26,6 +26,93 @@ body {
     color: #303030;
     background-color: transparent;
     border-color: #303030; }
+    .btn.btn-secondary:hover {
+      color: #c52a76;
+      background-color: transparent;
+      border-color: #303030; }
 
 .bg-dark {
   background-color: #005979 !important; }
+
+.navbar-brand img {
+  width: 30%; }
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-right: 2rem;
+  padding-left: 1rem;
+  font-size: 19px; }
+
+.dropdown-menu {
+  border: 1px solid #c52a76; }
+
+.dropdown-item {
+  color: #303030;
+  padding: 0.5rem 1rem; }
+  .dropdown-item:hover {
+    background-color: rgba(0, 89, 121, 0.2); }
+
+header {
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  padding: 6.5rem 0; }
+
+.bi.bi-facebook, .bi.bi-instagram {
+  color: white;
+  font-size: 1.5rem; }
+
+.bi.bi-x-circle {
+  color: #c52a76;
+  font-size: 1rem; }
+
+.modal-header, .offcanvas-header {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #c52a76; }
+
+.border-bottom {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #005979 !important; }
+
+.offcanvas-end {
+  width: 500px; }
+
+h5 span.badge {
+  font-size: 0.5em;
+  margin-left: 0.5rem;
+  vertical-align: middle; }
+
+.swal2-title {
+  padding: 1rem;
+  color: #303030;
+  font-weight: 400;
+  font-size: 1.5em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #c52a76; }
+
+.swal2-styled.swal2-confirm {
+  color: white;
+  background-color: #c52a76;
+  border-color: #c52a76;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  font-size: 1rem; }
+  .swal2-styled.swal2-confirm:hover {
+    color: #c52a76;
+    background-color: white !important;
+    border-color: #c52a76; }
+
+.swal2-styled.swal2-deny {
+  color: #303030;
+  background-color: #fff !important;
+  border-color: #303030;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  font-size: 1rem; }
+  .swal2-styled.swal2-deny:hover {
+    color: #c52a76;
+    background-color: #fff !important;
+    border-color: #303030; }

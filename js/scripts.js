@@ -1,6 +1,6 @@
 let usuarios = [];
 let listaProductos = [];
-let listaCompra = []; //en el workshop se llama carrito
+let listaCompra = [];
 
 let adminUser = new AdminUsuarios();
 let adminProduct = new AdminProductos();
@@ -38,6 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
+// escucho click boton quienes somos e informo que la pagina está en construcción
+const quienesSomos = document.getElementById("quienes-somos");
+quienesSomos.addEventListener("click",()=>{
+    Swal.fire({
+        title: 'Disculpá la molestia, esta página está en construcción',
+        padding: '1rem',
+        confirmButtonColor: '#c52a76',
+        confirmButtonText: 'Aceptar',         
+    });
+});
+
+
 function validarUser() {
     let mensaje = document.getElementById("mensaje");
     mensaje.innerHTML = "";
@@ -59,13 +71,11 @@ function iniciarCompra(id) {
     // verifico stock
     let hayStock = adminProduct.stockeado(id);
     if(hayStock){
-        adminProduct.mensajeUsuario("");
         adminProduct.detallesProductos(id);
     }else {
-        modalContent.innerHTML = '';
-        adminProduct.mensajeUsuario("el producto elegido se encuentra sin stock");
+        adminProduct.mensajeModal("el producto elegido se encuentra sin stock");
     };
-}
+};
 
 // valida detalles
 function validarDetalles(id) {
@@ -76,30 +86,17 @@ function validarDetalles(id) {
     //validacion 
     const tematica = document.getElementById("tematica").value || (mensaje.textContent += "Ingresá tematica - ");
     const color = document.getElementById("color").value || (mensaje.textContent += "Ingresá un color - ");
-    const nombre = document.getElementById("nombre").value || (mensaje.textContent += "Ingresá un color - ");
+    const nombre = document.getElementById("nombre").value || (mensaje.textContent += "Ingresá un nombre - ");
     if (mensaje.textContent === "") {
         adminProduct.cargarDetalles(id,color,tematica,nombre);   
     };
 };
 
-function eliminarProducto(id){
-    adminProduct.eliminarProductoCarrito(id);
-};
-
-
-/*
-// FUNCIONES que quedaron de la entrega anterior que me sirven como guia
-// funcion para terminar la compra
-function terminarCompra() {
-    // se muestra el total a pagar
-    let totalPagar = 0;
-    for (let i = 0 ;  i < lista.length ; i++){
-        totalPagar += lista[i].precio;
+// finalizar compra
+function finalizarCompra(total){
+    if (total === 0){
+        adminProduct.mensajeModal("No hay productos cargados en el carrito");
+    }else {
+        adminProduct.terminarCompra(total);
     };
-    alert("El total a pagar es: $ " + totalPagar);
-    alert("Pronto te llegará un email con la orden de compra y link de pago." + "\n" + "Gracias por tu compra.");
-    // una vez terminado el proceso de compra se limpia el carrito
-    vaciarLista();
 };
-
-*/

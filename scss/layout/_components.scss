@@ -5,9 +5,110 @@
     }
     &.btn-secondary {
         @include botones ($color-text, transparent, $color-text);
+        &:hover {
+            @include botones ($color-primary, transparent, $color-text);
+        }
     }
 }
 
 .bg-dark {
     background-color: $color-secondary !important;
+}
+
+.navbar-brand {
+    img {
+        width: 30%;
+    }
+}
+
+.navbar-expand-lg {
+   .navbar-nav {
+    .nav-link {
+        padding-right: 2rem;
+        padding-left: 1rem;
+        font-size: 19px;
+    }
+   }
+} 
+
+.dropdown-menu {
+    border: 1px solid $color-primary;
+}
+
+.dropdown-item {
+    color: $color-text;
+    padding: 0.5rem 1rem;
+    &:hover {
+        background-color: $color-secondary-transparent;
+    }
+}
+
+header {
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 6.5rem 0;
+}
+
+.bi.bi- {
+    &facebook, &instagram {
+        color: white;
+        font-size: 1.5rem;    
+    }
+    &x-circle {
+        color: $color-primary;
+        font-size: 1rem;
+    }
+}
+
+.modal-header, .offcanvas-header {
+    @include bordes-bottom (1px, solid, $color-primary);
+}
+
+.border-bottom {
+    @include bordes-bottom (1px, solid, $color-secondary !important);
+}
+
+.offcanvas-end {
+    width: 500px;
+}
+
+h5 {
+    span {
+        &.badge {
+            font-size: 0.5em;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+    }
+
+}
+.swal2-title {
+    padding: 1rem;
+    color: $color-text;
+    font-weight: 400;
+    font-size: 1.5em;
+    @include bordes-bottom (1px, solid, $color-primary);
+  }
+
+.swal2-styled.swal2- {
+    &confirm {
+        @include botones (white, $color-primary, $color-primary);
+        border: 1px solid;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        &:hover {
+            @include botones ($color-primary, rgba(255, 255, 255, 1) !important, $color-primary);
+        }
+    }
+    &deny {
+        @include botones ($color-text, #fff !important, $color-text);
+        border: 1px solid;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        &:hover {
+            @include botones ($color-primary, #fff !important, $color-text);
+        }     
+    }
 }
