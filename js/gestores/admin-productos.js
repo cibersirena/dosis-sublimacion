@@ -2,9 +2,6 @@ class AdminProductos {
     
     cargaProductos() {
         
-        // los ordeno segun el id
-        listaProductos.sort((a, b) => (a.id - b.id));
-        
         //muestro por consola el listado de productos ordenados
         console.log(listaProductos);
 
@@ -29,8 +26,9 @@ class AdminProductos {
             const { id,tipo, precio, stock, imagen, item } = p;
             menu.push(p.item);
         });
-        // le sumo la opcion ver todos
+        // le sumo la opcion ver todos y solo con stock
         menu.push("Ver todos");
+        menu.push("Solo con stock");
 
         let unicosItems = new Set(menu);
         // confirmo por consola que no se repiten items
@@ -45,40 +43,85 @@ class AdminProductos {
 
             menuProductos.appendChild(li);
         });
+
+        // creo el menu de botones para filtrar
+        const botonesFiltros = document.getElementById("filtros");
+        botonesFiltros.innerHTML = 'Filtrar por: ';
+
+        unicosItems.forEach( (p) => {
+            let button = document.createElement('button');
+            button.classList.add('btn', 'btn-secondary', 'filter');
+            button.setAttribute('type', 'button');
+            button.setAttribute('id', p+p);
+            button.textContent = p;
+ 
+            botonesFiltros.appendChild(button);
+        });
+
         this.menuEventos(listaProductos,unicosItems);
+        this.filtrosEventos(listaProductos,unicosItems);
     };
 
     // eventos del menu
     menuEventos(listaProductos,unicosItems){
-        let resultado = "";
+        let resultado;
+        let click;
         unicosItems.forEach( (p) => {
-            if (p != "Ver todos"){
-                let click = document.getElementById(p);
+            if ((p != "Ver todos") || (p != "Solo con stock")){
+                click = document.getElementById(p);
                 click.addEventListener("click",()=>{
                     resultado = listaProductos.filter(lp => (lp.item == p));
                     this.mostrarProductos(resultado);
-                    this.mensajeUsuario("Se muestran todos los productos segun la busqueda: "+p)
+                    this.mensajeUsuario("Se muestran todos/as los/as: "+p)
                 });
-            }else {
-                let click = document.getElementById("Ver todos");
+            }
+            if (p == "Ver todos"){
+                click = document.getElementById("Ver todos");
                 click.addEventListener("click",()=>{
                     this.mostrarProductos(listaProductos);
-                    this.mensajeUsuario("");
+                    this.mensajeUsuario("Se muestran todos los productos");
+                });  
+            }else {
+                click = document.getElementById("Solo con stock");
+                click.addEventListener("click",()=>{
+                    resultado = listaProductos.filter(lp => (lp.stock == true));
+                    this.mostrarProductos(resultado);
+                    this.mensajeUsuario("Se muestran todos los productos con stock")
                 });
             };
-            
         });   
     };
 
-    // funcion para verificar stock
-    stockeado(id){
-        if (listaProductos[(id-1)].stock){
-            return true;
-        }else {
-            return false;
-        };
+    // eventos de los botones de filtrado
+    filtrosEventos(listaProductos,unicosItems){
+        let resultado;
+        let click;
+        unicosItems.forEach( (p) => {
+            switch (p) {
+                case "Ver todos":   click = document.getElementById(p+p);
+                                    click.addEventListener("click",()=>{
+                                        this.mostrarProductos(listaProductos);
+                                        this.mensajeUsuario("Se muestran todos los productos");
+                                        click.classList.toggle("btn-primary")
+                                    });
+                                    break;
+                case "Solo con stock":  click = document.getElementById(p+p);
+                                        click.addEventListener("click",()=>{
+                                            resultado = listaProductos.filter(lp => (lp.stock == true));
+                                            this.mostrarProductos(resultado);
+                                            this.mensajeUsuario("Se muestran todos los productos con stock")
+                                        });
+                                        break;
+                default:    click = document.getElementById(p+p);
+                            click.addEventListener("click",()=>{
+                                resultado = listaProductos.filter(lp => (lp.item == p));
+                                this.mostrarProductos(resultado);
+                                this.mensajeUsuario("Se muestran todos/as los/as: "+p)
+                });
+            };
+        });                             
     };
-
+    
     // funcion para mostrar los productos en el html
     mostrarProductos(listaProductos){
         //creo las cards de cada producto, eliminando lo que haya previamente
@@ -121,18 +164,19 @@ class AdminProductos {
             });
         };   
     };
-
-    // se pide el detalle del producto segun el id
+    
+    // se pide el detalle del producto segun el tipo de item
     detallesProductos(id){
         modalContent.innerHTML = '';
-        if (id === "2" || id === "3") {
+        if (listaProductos[(id-1)].item === "Identificadores") {
             this.detalleIdentificadorForm(id)
-        };
-        if (id === "6") {
-            this.detalleRemeraForm(id)
         }else {
-            this.detalleProductoForm(id)
-        };
+           if (listaProductos[(id-1)].item === "Remeras") {
+            this.detalleRemeraForm(id)
+            }else {
+                this.detalleProductoForm(id)
+            }
+        }
     };
 
     detalleProductoBase(id){
@@ -164,7 +208,7 @@ class AdminProductos {
         modalContent.appendChild(detalleForm);
     };
 
-    detalleProductoForm(id){
+   detalleProductoForm(id){
         
         this.detalleProductoBase(id);
         

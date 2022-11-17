@@ -25,11 +25,13 @@ body {
   .btn.btn-secondary {
     color: #303030;
     background-color: transparent;
-    border-color: #303030; }
+    border-color: #005979; }
     .btn.btn-secondary:hover {
       color: #c52a76;
       background-color: transparent;
       border-color: #303030; }
+  .btn.filter {
+    margin: 0 10px 5px; }
 
 .bg-dark {
   background-color: #005979 !important; }
@@ -108,11 +110,11 @@ h5 span.badge {
 .swal2-styled.swal2-deny {
   color: #303030;
   background-color: #fff !important;
-  border-color: #303030;
+  border-color: #005979 !important;
   border: 1px solid;
   border-radius: 0.25rem;
   font-size: 1rem; }
   .swal2-styled.swal2-deny:hover {
     color: #c52a76;
     background-color: #fff !important;
-    border-color: #303030; }
+    border-color: #005979; }

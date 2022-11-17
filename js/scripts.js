@@ -13,9 +13,18 @@ const modalContent = document.querySelector('#modal-content');
 const pedirProductos = async () => {
     const respuesta = await fetch('./js/json/productos.json');
     const datos = await respuesta.json();
-    datos.forEach( (producto)  => {
+    datos.forEach( (producto) => {
         listaProductos.push(producto)
     });
+
+    // los ordeno segun el tipo y le asigno como id su ubicacion dentro del array + 1 para evitar un ID 0
+    listaProductos.sort((a, b) => a.tipo.localeCompare(b.tipo));
+    // reasigno ID para que cuando se agregue un producto se actualicen los id automaticamente sin tener que tocar codigo
+    listaProductos.forEach( (p) => {
+        p.id = listaProductos.indexOf(p)+1;
+    });
+
+    // llamo a la funcion para cargarlos en el DOM
     adminProduct.cargaProductos();
 };
 
@@ -90,13 +99,8 @@ function validarUser() {
 
 // funcion para inicar la compra
 function iniciarCompra(id) {
-    // verifico stock
-    let hayStock = adminProduct.stockeado(id);
-    if(hayStock){
-        adminProduct.detallesProductos(id);
-    }else {
-        adminProduct.mensajeModal("el producto elegido se encuentra sin stock");
-    };
+    // verifico stock si hay pido detalles del producto sino muestro un mensaje al usuario
+    listaProductos[(id-1)].stock ? adminProduct.detallesProductos(id) : adminProduct.mensajeModal("el producto elegido se encuentra sin stock");
 };
 
 // valida detalles

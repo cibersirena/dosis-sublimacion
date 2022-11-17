@@ -4,10 +4,13 @@
         @include botones ($color-primary, transparent, $color-primary);
     }
     &.btn-secondary {
-        @include botones ($color-text, transparent, $color-text);
+        @include botones ($color-text, transparent, $color-secondary);
         &:hover {
             @include botones ($color-primary, transparent, $color-text);
-        }
+        }  
+    }
+    &.filter {
+        margin: 0 10px 5px;
     }
 }
 
@@ -103,12 +106,12 @@ h5 {
         }
     }
     &deny {
-        @include botones ($color-text, #fff !important, $color-text);
+        @include botones ($color-text, #fff !important, $color-secondary !important);
         border: 1px solid;
         border-radius: 0.25rem;
         font-size: 1rem;
         &:hover {
-            @include botones ($color-primary, #fff !important, $color-text);
+            @include botones ($color-primary, #fff !important, $color-secondary);
         }     
     }
 }
