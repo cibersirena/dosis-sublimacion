@@ -7,6 +7,7 @@
     <li>HTML 5</li>
     <li>CSS</li>
     <li>JAVA SCRIPT</li>
+    <li>Librerías Sweet Alert y Toastify</li>
 </ul>
 
 <h2>Tecnologías utilizadas <g-emoji class="g-emoji" alias="computer" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4bb.png">💻</g-emoji></h2>
@@ -14,7 +15,7 @@
     <li>SASS</li>
     <li>GIT</li>
     <li>GITHUB</li>
-    <li>NODE</li>
+    <li>NODE JS</li>
 </ul>
 
 <h2>Autor <g-emoji class="g-emoji" alias="black_nib" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2712.png">✒️</g-emoji></h2>

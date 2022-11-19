@@ -5,6 +5,7 @@ let listaCompra = [];
 let adminUser = new AdminUsuarios();
 let adminProduct = new AdminProductos();
 let userActual;
+let userGuardado = usuarioGuardado(userActual);
 
 let registro = document.getElementById("registro");
 const modalContent = document.querySelector('#modal-content');
@@ -41,15 +42,10 @@ const pedirUsuarios = async () => {
 // Evento que se dispara al cargar la pagina
 document.addEventListener('DOMContentLoaded', () => {
 
-   // verifico si ya hay un user guardado en local storage 
-   userActual = JSON.parse(localStorage.getItem('user')) || "vacio";
-   // confirmo por consola si hay un nombre de user
-   console.log(userActual.name);
-
    // si hay un user en local storage lo muestro en el boton de registro
    // sino le agrego los atributos de boton de bootstrap para que abra el modal y escucho el evento click
-   if (userActual != "vacio") {
-        registro.textContent = userActual.name;
+   if (userGuardado != "vacio") {
+        registro.textContent = userGuardado.name;
    }else {
         registro.setAttribute("data-bs-toggle", "modal");
         registro.setAttribute("data-bs-target", "#myModal");
@@ -80,7 +76,16 @@ quienesSomos.addEventListener("click",()=>{
     });
 });
 
+// función para verificar si hay user guardado en local storage
+function usuarioGuardado(userActual){
+    // verifico si ya hay un user guardado en local storage 
+   userActual = JSON.parse(localStorage.getItem('user')) || "vacio";
+   // confirmo por consola si hay un nombre de user
+   console.log(userActual.name);
+   return userActual;
+};
 
+// validación de usuario
 function validarUser() {
     let mensaje = document.getElementById("mensaje");
     mensaje.innerHTML = "";
@@ -120,9 +125,20 @@ function validarDetalles(id) {
 
 // finalizar compra
 function finalizarCompra(total){
+    // compruebo de que haya algún producto en el carrito
     if (total === 0){
         adminProduct.mensajeModal("No hay productos cargados en el carrito");
     }else {
-        adminProduct.terminarCompra(total);
+        // compruebo que el usuario esté registrado sino pido que se registre
+        if(userGuardado != "vacio"){
+           adminProduct.terminarCompra(total,userGuardado); 
+        }else {
+            adminProduct.mensajeModal("Para finalizar la compra tenés que registrarte");
+            const botonModal = document.createElement('div');
+            botonModal .classList.add("modal-footer");
+            botonModal .innerHTML = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                                    <button type="button" class="btn" id="aceptar" onclick="javascript:adminUser.userRegistroNuevo()">Registrarme</button>`;
+            modalContent.appendChild(botonModal);
+        };
     };
 };

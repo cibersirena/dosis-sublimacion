@@ -66,12 +66,14 @@ class AdminUsuarios {
             this.guardarUser();
             // muestro por consola como me quedo el array
             console.log(usuarios);
+            // me fijo si hay productos en el carrito y pregunto si quiere terminar la compra
+            setTimeout(this.hayProductos, 1500);
         }
     };
 
     // Guardar en Storage
     guardarUser() { 
-        localStorage.setItem('user', JSON.stringify(usuarios[0]));       
+        localStorage.setItem('user', JSON.stringify(usuarios[0]));   
     };
 
     // funcion de bienvenida
@@ -92,4 +94,28 @@ class AdminUsuarios {
         registro.removeAttribute("data-bs-target");
     };
 
+    // funcion para verificar si hay productos en el carrito
+    hayProductos(){
+        listaCompra = JSON.parse( localStorage.getItem('lista') ) || [];
+        let total = 0;
+        userGuardado = usuarios[0];
+        if (listaCompra != ""){
+            for (let i = 0; i < listaCompra.length; i++){
+                total += parseInt(listaCompra[i].precio);
+            };
+            modalContent.innerHTML = '';
+            let pregunta = document.createElement('div');
+            pregunta.classList.add("modal-body");
+            pregunta.innerHTML = ` <div class="modal-header">
+                                    <h5 class="modal-title">${usuarios[0].name}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                    <div class="modal-body">
+                                    <p class="mx-3">Tenés productos en el carrito, ¿querés finalizar la compra?</p></div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn" id="si" onclick="javascript:finalizarCompra(${total})">Si</button>
+                                    <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="offcanvas" id="no">No</button></div>`;
+  
+            modalContent.appendChild(pregunta);
+        };
+    };
 }

@@ -14,14 +14,14 @@ class AdminProductos {
         // muestro la cantidad de productos que hay en el carrito
         this.actualizarCantidad();
 
+        // llamo a la funcion para mostrar la lista de productos en el menu del nav
         this.menuProductos(listaProductos);
-
     };
 
-    //cargar menu productos
+    //carga menu productos
     menuProductos(listaProductos){
         // creo un nuevo array para que no se repitan items en el menu 
-        const menu = []
+        const menu = [];
         listaProductos.forEach( (p) => {
             const { id,tipo, precio, stock, imagen, item } = p;
             menu.push(p.item);
@@ -40,7 +40,6 @@ class AdminProductos {
         unicosItems.forEach( (p) => {
             let li = document.createElement('li');   
             li.innerHTML = `<a class="dropdown-item" href="#!" id="${p}">${p}</a>`;
-
             menuProductos.appendChild(li);
         });
 
@@ -54,7 +53,6 @@ class AdminProductos {
             button.setAttribute('type', 'button');
             button.setAttribute('id', p+p);
             button.textContent = p;
- 
             botonesFiltros.appendChild(button);
         });
 
@@ -102,7 +100,6 @@ class AdminProductos {
                                     click.addEventListener("click",()=>{
                                         this.mostrarProductos(listaProductos);
                                         this.mensajeUsuario("Se muestran todos los productos");
-                                        click.classList.toggle("btn-primary")
                                     });
                                     break;
                 case "Solo con stock":  click = document.getElementById(p+p);
@@ -124,27 +121,22 @@ class AdminProductos {
     
     // funcion para mostrar los productos en el html
     mostrarProductos(listaProductos){
-        //creo las cards de cada producto, eliminando lo que haya previamente
+        
         const cardProductos = document.getElementById("productos");
         cardProductos.innerHTML = '';
         
         if(listaProductos.length === 0) {
-            // si no hay productos cargados se muestra el mensaje al usuario
             this.mensajeUsuario("No hay productos para mostrar");
             return false;
-        } 
-        else {          
+        }else {          
             listaProductos.forEach( (p) => {
-                const { id,tipo, precio, stock, imagen, item } = p
+                const { id,tipo, precio, stock, imagen, item } = p;
 
                 let itemStock = p.stock ? "" : "sin stock";
                 
-                //por cada producto creo un div
                 let divCard = document.createElement('div');
-                // agrego clases y atributos
                 divCard.classList.add('col', 'mb-5');
                 divCard.setAttribute('id', listaProductos.indexOf(p));    
-                // agrego elementos html
                 divCard.innerHTML = `<div class="col mb-3">
                                         <div class="card h-100">
                                             <img class="card-img-top" src="./assets/productos/${imagen}" alt="${tipo}">
@@ -175,40 +167,40 @@ class AdminProductos {
             this.detalleRemeraForm(id)
             }else {
                 this.detalleProductoForm(id)
-            }
-        }
+            };
+        };
     };
 
     detalleProductoBase(id){
         let detalleForm = document.createElement('div');
         detalleForm.classList.add("modal-body");
-        detalleForm.innerHTML = `  <div class="modal-header">
+        detalleForm.innerHTML = `<div class="modal-header">
                                 <h5 class="modal-title">Detalles</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <p id="mensaje"></p>
-                            <form id="modal-form">
-                                <div class="mb-3" id="campo-1">
-                                    <label class="col-form-label" for="color">Ingresá el color</label>
-                                    <input type="text" class="form-control" id="color">
                                 </div>
-                                <div class="mb-3" id="campo-2">
-                                    <label class="col-form-label" for="tematica"></label>
-                                    <input type="text" class="form-control" id="tematica">
-                                </div>
-                                <div class="mb-3" id="campo-3">
-                                    <label class="col-form-label" for="nombre"></label>
-                                    <input type="text" class="form-control" id="nombre">
-                                </div>
-                            </form>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
-                                <button type="button" class="btn" id="aceptar" onclick="javascript:validarDetalles(${id})">Aceptar</button>
-                            </div>`;
+                                <p id="mensaje"></p>
+                                <form id="modal-form">
+                                    <div class="mb-3" id="campo-1">
+                                        <label class="col-form-label" for="color">Ingresá el color</label>
+                                        <input type="text" class="form-control" id="color">
+                                    </div>
+                                    <div class="mb-3" id="campo-2">
+                                        <label class="col-form-label" for="tematica"></label>
+                                        <input type="text" class="form-control" id="tematica">
+                                    </div>
+                                    <div class="mb-3" id="campo-3">
+                                        <label class="col-form-label" for="nombre"></label>
+                                        <input type="text" class="form-control" id="nombre">
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                                    <button type="button" class="btn" id="aceptar" onclick="javascript:validarDetalles(${id})">Aceptar</button>
+                                </div>`;
         modalContent.appendChild(detalleForm);
     };
 
-   detalleProductoForm(id){
+    detalleProductoForm(id){ 
         
         this.detalleProductoBase(id);
         
@@ -268,14 +260,18 @@ class AdminProductos {
         detalleCarrito.innerHTML = '';
         let total = 0;
         
-        listaCompra.forEach( ( p ) => {
+        listaCompra.forEach( (p) => {
             const { id,tipo,precio,stock,imagen,item,color,tematica,nombrePersonalizado,cantidad} = p
+            
             const row = document.createElement('div');
             row.classList.add('row');
             row.setAttribute('id', listaCompra.indexOf(p));   
+            
             total += parseInt(p.precio);
+            
             const idRow = document.getElementById(listaCompra.indexOf(p));
             let rowId = idRow.getAttribute("id");
+
             row.innerHTML = `<div class="col-2 d-flex align-items-center p-2">
                                 <img src="./assets/productos/${imagen}" alt="${tipo}" width="50">
                             </div>
@@ -316,13 +312,13 @@ class AdminProductos {
     };
 
     // terminar compra
-    terminarCompra(total){
+    terminarCompra(total,userGuardado){
         this.mensajeModal("Finalizando compra");
-
+        
         let pagar = document.createElement("div");
         pagar.classList.add("modal-body");
         pagar.innerHTML = ` <h5 class="mx-3">El total a pagar es: $ ${total}.-</h5>
-                            <p class="mx-3">Pronto te llegará un email con la orden de compra y link de pago.</p>
+                            <p class="mx-3">${userGuardado.name} te llegará un email a ${userGuardado.mail} con la orden de compra y link de pago.</p>
                             <h4 class="fw-bolder text-center">Gracias por tu compra :)</h4>
                             <div class="modal-footer">
                                 <button type="button" class="btn" id="fin" onclick="javascript:adminProduct.vaciarCarrito()" data-bs-dismiss="modal">Aceptar</button>
@@ -338,7 +334,7 @@ class AdminProductos {
             padding: '1rem',
             showDenyButton: true,
             confirmButtonColor: '#c52a76',
-            confirmButtonText: 'Eliminar',
+            confirmButtonText: 'Sí, eliminar',
             denyButtonText: 'NO',
             denyButtonColor: '#303030',
         }).then((result) => {
@@ -396,7 +392,7 @@ class AdminProductos {
     //Contabilizo las cantidad de productos
     cantidadProductos() { 
         let cantidadProductos = 0;
-        listaCompra.forEach(( p ) => {
+        listaCompra.forEach( (p) => {
             cantidadProductos = cantidadProductos + parseInt(p.cantidad);
         });
         return cantidadProductos;
@@ -406,7 +402,7 @@ class AdminProductos {
     actualizarCantidad() { 
         let totalProductos = this.cantidadProductos();
         let badgeCarrito = document.querySelector('#badgeCarrito');
-        // Actualizar contador del carrito
+        // Actualizo contador del carrito para el usuario
         badgeCarrito.innerHTML = totalProductos;
     };
 
@@ -434,7 +430,7 @@ class AdminProductos {
         modalContent.innerHTML = '';
         const mensajeModal = document.createElement('div');
         mensajeModal.classList.add("modal-body");
-        mensajeModal.innerHTML = ` <div class="modal-header">
+        mensajeModal.innerHTML = `  <div class="modal-header">
                                         <h5 class="modal-title">${mm}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>`;
