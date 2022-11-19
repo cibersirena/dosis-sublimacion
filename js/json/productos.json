@@ -44,7 +44,7 @@
         "tipo": "GORRA NIÑOS",
         "precio": 1800,
         "stock": false,
-        "imagen": "Gorra-06.jpg",
+        "imagen": "Gorra-07.jpg",
         "item": "Gorras"
     },
     {
@@ -84,7 +84,7 @@
         "tipo": "GORRA ADULTOS",
         "precio": 2000,
         "stock": true,
-        "imagen": "Gorra-07.jpg",
+        "imagen": "Gorra-06.jpg",
         "item": "Gorras"
     },
     {
