@@ -87,6 +87,12 @@ h5 {
     }
 
 }
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .swal2-title {
     padding: 1rem;
     color: $color-text;
