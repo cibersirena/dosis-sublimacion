@@ -1,6 +1,9 @@
 <h1>Dosis sublimación</h1>
 <p>Proyecto final de Gabriela Monteforte para el curso de java script en Coder House</p>
 
+<h2>Vista previa del proyecto <g-emoji class="g-emoji" alias="computer" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4bb.png">💻</g-emoji></h2>
+<img src="./dosis-sublimacion.jpg" alt="preview del sitio web">
+
 <h2>Construido con: <g-emoji class="g-emoji" alias="hammer_and_wrench" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e0.png">🛠️</g-emoji></h2>
 <ul>
     <li>Framework Bootstrap</li>
